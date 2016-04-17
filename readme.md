@@ -31,3 +31,6 @@ answered, and until this last question was answered also, AC might
 ```
 
 If you want to excute code, [Run in .NET Fiddler](https://dotnetfiddle.net/JB8QNo)
+
+Author : [Junho Park](mailto:huinalam@gmail.com)
+Yeungnam University, Computer Engineering
