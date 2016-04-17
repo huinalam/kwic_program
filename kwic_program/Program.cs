@@ -91,13 +91,18 @@ namespace kwic_program
                 }
             }
 
+            /// <summary>
+            /// Searching Key Word In Context.
+            /// </summary>
+            /// <param name="target">word for searching</param>
+            /// <returns>return format for concordance lines. if dont find word, return null.</returns>
             public List<string> Concordance(string target)
             {
                 var searchedWords = 
                     _wordSetList.Where(q => q.Word == target).ToList();
 
                 return searchedWords.Count == 0 ?
-                    new List<string>() : 
+                    null : 
                     searchedWords.Select(PrintLine).ToList();
             }
 
