@@ -4,7 +4,11 @@
 ```CS
 string text = File.ReadAllText(@"TheLastQuestion.txt");
 
-var kwic = new KWIC(text);
+var kwic = new KWIC(text)
+{
+    ForwardMargin = 30,
+    BackwardMargin = 30
+};
 var results = kwic.Concordance("last");
 
 foreach (var result in results)
