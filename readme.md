@@ -1,4 +1,4 @@
-# KWIC for CShpare
+# KWIC for CSharp
 
 ## Sample Code
 ```CS
