@@ -9,7 +9,7 @@ var kwic = new KWIC(text)
     ForwardMargin = 30,
     BackwardMargin = 30
 };
-var results = kwic.Concordance("last");
+var results = kwic.Concordance("question");
 
 foreach (var result in results)
 {
