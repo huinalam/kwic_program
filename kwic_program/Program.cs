@@ -12,7 +12,11 @@ namespace kwic_program
         {
             string text = File.ReadAllText(@"TheLastQuestion.txt");
 
-            var kwic = new KWIC(text);
+            var kwic = new KWIC(text)
+            {
+                ForwardMargin = 30,
+                BackwardMargin = 30
+            };
             var results = kwic.Concordance("question");
 
             foreach (var result in results)
@@ -26,29 +30,29 @@ namespace kwic_program
             private readonly char[] _delimiterChars;
             public string OrginString { get; private set; }
             
-            public int ForwardCount
+            public int ForwardMargin
             {
-                get { return _forwardCount; }
+                get { return _forwardMargin; }
                 set
                 {
                     if (value < 0)
                         throw new ArgumentOutOfRangeException("need to natural number");
-                    _forwardCount = value;
+                    _forwardMargin = value;
                 }
             }
-            private int _forwardCount = 0;
+            private int _forwardMargin = 0;
 
-            public int BackwardCount
+            public int BackwardMargin
             {
-                get { return _backwardCount; }
+                get { return _backwardMargin; }
                 set
                 {
                     if (value < 0)
                         throw new ArgumentOutOfRangeException("need to natural number");
-                    _backwardCount = value;
+                    _backwardMargin = value;
                 }
             }
-            private int _backwardCount = 0;
+            private int _backwardMargin = 0;
 
             private List<string> _wordList { get; set; }
             private List<WordSet> _wordSetList { get; set; } = new List<WordSet>();
@@ -66,7 +70,7 @@ namespace kwic_program
                     throw new ArgumentNullException(nameof(text));
                 }
 
-                BackwardCount = ForwardCount = 30;
+                BackwardMargin = ForwardMargin = 30;
                 OrginString = text;
                 SplitWords(text);
                 _delimiterChars = delimiterChars;
@@ -99,8 +103,8 @@ namespace kwic_program
 
             private string PrintLine(WordSet wordSet)
             {
-                var forwardwords = BuildForwardWords(wordSet, ForwardCount);
-                var backwardWords = BuildBackwardWords(wordSet, BackwardCount);
+                var forwardwords = BuildForwardWords(wordSet, ForwardMargin);
+                var backwardWords = BuildBackwardWords(wordSet, BackwardMargin);
                 
                 var line = new StringBuilder();
                 line.Append(forwardwords);
