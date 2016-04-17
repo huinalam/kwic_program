@@ -118,18 +118,18 @@ namespace kwic_program
                 return line.ToString();
             }
 
-            private string BuildForwardWords(WordSet wordSet, int forwardCount)
+            private string BuildForwardWords(WordSet wordSet, int forwardMargin)
             {
                 int charCount = 0;
                 var forwardList = new List<string>();
                 for (var idx = wordSet.Index - 1; idx > 0; idx--)
                 {
-                    if (GetWords(idx, forwardCount, forwardList, ref charCount)) break;
+                    if (GetWords(idx, forwardMargin, forwardList, ref charCount)) break;
                 }
                 forwardList.Reverse();
 
                 var forwardStrBuilder = new StringBuilder();
-                for (var idx = 0; idx < forwardCount - charCount; idx++)
+                for (var idx = 0; idx < forwardMargin - charCount; idx++)
                 {
                     forwardStrBuilder.Append(" ");
                 }
@@ -141,37 +141,37 @@ namespace kwic_program
                 return forwardStrBuilder.ToString();
             }
 
-            private string BuildBackwardWords(WordSet wordSet, int backwardCount)
+            private string BuildBackwardWords(WordSet wordSet, int backwardMargin)
             {
                 int charCount = 0;
-                var forwardList = new List<string>();
+                var backwardList = new List<string>();
                 for (var idx = wordSet.Index + 1; idx < _wordList.Count; idx++)
                 {
-                    if (GetWords(idx, backwardCount, forwardList, ref charCount)) break;
+                    if (GetWords(idx, backwardMargin, backwardList, ref charCount)) break;
                 }
 
                 var forwardStrBuilder = new StringBuilder();
                 forwardStrBuilder.Append(" ");
-                foreach (var word in forwardList)
+                foreach (var word in backwardList)
                 {
                     forwardStrBuilder.Append(word);
                     forwardStrBuilder.Append(" ");
                 }
-                for (var idx = 0; idx < backwardCount - charCount - 1; idx++)
+                for (var idx = 0; idx < backwardMargin - charCount - 1; idx++)
                 {
                     forwardStrBuilder.Append(" ");
                 }
                 return forwardStrBuilder.ToString();
             }
 
-            private bool GetWords(int idx, int forward, List<string> forwardList, ref int charCount)
+            private bool GetWords(int idx, int charLimit, List<string> wordList, ref int charCount)
             {
                 var word = _wordList[idx];
                 var count = charCount + word.Length + 1;
-                if (count > forward)
+                if (count > charLimit)
                     return true;
                 charCount = count;
-                forwardList.Add(word);
+                wordList.Add(word);
                 return false;
             }
         }
